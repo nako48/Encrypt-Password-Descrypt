@@ -1,4 +1,5 @@
-<img src="https://raw.githubusercontent.com/nako48/Bash-Tools/master/Decrypter/screenshot.png" height="500px" width="800px">
+<img src="https://raw.githubusercontent.com/nako48/Encrypt-Descrypt-Password/master/screenshot.png" height="500px" width="800px">
+</br>
 </div>
 </br>
 List Decrypter</br>
