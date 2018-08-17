@@ -1,62 +1,67 @@
 #!/bin/bash
-#Tatsumi-Crew & Arvan Apriyana
-clear
+#issued on : 17 agustus 2018
+#coded By Arvan Apriyana
+waktu=$(date '+%Y-%m-%d %H:%M:%S')
+HIJAU='\033[0;32m'
+MERAH='\033[0;31m'
+NORMAL='\033[0m'
+CYAN='\033[0;36m'
+BIRU='\033[0;34m'
+PUTIH='\033[1;37m'
 header(){
-CYAN='\e[36m'
-BLUE='\e[34m'
-GREEN='\e[92m'
-WHITE='\e[37m'
-RED='\e[31m'
-YELLOW='\e[33m'
-GREENLIGHT='\e[39m'
-PURPLE='\e[35m'
-BOLD='\e[1m'
-printf "
-${GREEN}
-___________________________________________________________
-
- ████████╗ █████╗ ████████╗███████╗██╗   ██╗███╗   ███╗██╗
- ╚══██╔══╝██╔══██╗╚══██╔══╝██╔════╝██║   ██║████╗ ████║██║${BLUE}
-    ██║   ███████║   ██║   ███████╗██║   ██║██╔████╔██║██║
-    ██║   ██╔══██║   ██║   ╚════██║██║   ██║██║╚██╔╝██║██║
-    ██║   ██║  ██║   ██║   ███████║╚██████╔╝██║ ╚═╝ ██║██║${RED}
-    ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝
-  
-  	              Password - Encrypt  ${WHITE}
- 	md5 | sha1 | sha224 | sha256 | sha384 | sha512   
-  	              www.tatsumi-crew.net
-___________________________________________________________
-
+printf "${HIJAU}
+ ####################################
+ ####################################
+ #######                      #######
+ #######                      #######
+ #######                      #######
+ ###############      ###############
+ ###############      ###############
+ ###############      ###############
+ ###############      ###############${MERAH}
+ #######    ####      ####    #######
+ #######    ####      ####    #######
+ #######    ##############    #######
+ #######    ##############    #######
+ #######                      #######
+ ####################################
+ ####################################${PUTIH}
+ ------------------------------------
+         Password - Encrypt
+ md5-sha1-sha224-sha256-sha384-sha512
+      Code By: Arvan Apriyana
+        www.tatsumi-crew.net
+ ------------------------------------
 "
 }
 scanskrng(){
 	kocak="$1"
 	encrypter=$(curl -s "https://lea.kz/api/password/$1" -L)
-	pwmd5=$(echo $encrypter | grep -Po '(?<="md5":)[^,]*' | tr -d '[]"')
-	pwsha1=$(echo $encrypter | grep -Po '(?<="sha1":)[^,]*' | tr -d '[]"')
-	pwsha224=$(echo $encrypter | grep -Po '(?<="sha224":)[^,]*' | tr -d '[]"')
-	pwsha256=$(echo $encrypter | grep -Po '(?<="sha256":)[^,]*' | tr -d '[]"')
-	pwsha384=$(echo $encrypter | grep -Po '(?<="sha384":)[^,]*' | tr -d '[]"')
+	pwmd5=$(echo $encrypter | grep -Po '(?<="md5":)[^,]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{\|}\)//g')
+	pwsha1=$(echo $encrypter | grep -Po '(?<="sha1":)[^,]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{\|}\)//g')
+	pwsha224=$(echo $encrypter | grep -Po '(?<="sha224":)[^,]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{\|}\)//g')
+	pwsha256=$(echo $encrypter | grep -Po '(?<="sha256":)[^,]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{\|}\)//g')
+	pwsha384=$(echo $encrypter | grep -Po '(?<="sha384":)[^,]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{\|}\)//g')
 	pwsha512=$(echo $encrypter | grep -Po '(?<="sha512":)[^,]*' | tr -d '[]"')
 	if [[ ! $encrypter =~ "NAKO" ]]; then
-	printf "${WHITE}MD5 : ${YELLOW}$kocak => $pwmd5\n"
-	printf "${WHITE}SHA1 : ${YELLOW}$kocak => $pwsha1\n"
-	printf "${WHITE}SHA224: ${YELLOW}$kocak => $pwsha224\n"
-	printf "${WHITE}SHA256 : ${YELLOW}$kocak => $pwsha256\n"
-	printf "${WHITE}SHA384 : ${YELLOW}$kocak => $pwsha384\n"
-	printf "${WHITE}SHA512 : ${YELLOW}$kocak => $pwsha512\n"
+	printf " ${HIJAU}MD5 : $kocak => $pwmd5\n"
+	printf " ${HIJAU}SHA1 : $kocak => $pwsha1\n"
+	printf " ${HIJAU}SHA224 : $kocak => $pwsha224\n"
+	printf " ${HIJAU}SHA256 : $kocak => $pwsha256\n"
+	printf " ${HIJAU}SHA384 : $kocak => $pwsha384\n"
+	printf " ${HIJAU}SHA512 : $kocak => $pwsha512\n"
     echo "$encrypter | $1" >> nemu.txt
            else
-    printf "${RED}NOT FOUND${NC} => $encrypter\n"
+    printf " ${MERAH}NOT FOUND${NC} => $encrypter\n"
 fi
 }
 header
-echo "Method : "
-echo "1. Encrypt Password"
-read -p "Choose Your Method : " method;
+echo " Method : "
+echo " 1. Encrypt Password"
+read -p " Choose Your Method : " method;
 
 if [ $method -eq 1 ]; then
-	read -p "Password : " kocak;
+	read -p " Password : " kocak;
 	for pwna in $kocak; do
 		scanskrng $pwna
 done
