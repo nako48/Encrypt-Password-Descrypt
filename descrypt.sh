@@ -1,69 +1,60 @@
 #!/bin/bash
-#Tatsumi-Crew & Arvan Apriyana
-clear
+#issued on : 17 agustus 2018
+#coded By Arvan Apriyana
+waktu=$(date '+%Y-%m-%d %H:%M:%S')
+HIJAU='\033[0;32m'
+MERAH='\033[0;31m'
+NORMAL='\033[0m'
+CYAN='\033[0;36m'
+BIRU='\033[0;34m'
+PUTIH='\033[1;37m'
 header(){
-CYAN='\e[36m'
-BLUE='\e[34m'
-GREEN='\e[92m'
-WHITE='\e[37m'
-RED='\e[31m'
-YELLOW='\e[33m'
-GREENLIGHT='\e[39m'
-PURPLE='\e[35m'
-BOLD='\e[1m'
-printf "
-${GREEN}
-___________________________________________________________
-
- ████████╗ █████╗ ████████╗███████╗██╗   ██╗███╗   ███╗██╗
- ╚══██╔══╝██╔══██╗╚══██╔══╝██╔════╝██║   ██║████╗ ████║██║${BLUE}
-    ██║   ███████║   ██║   ███████╗██║   ██║██╔████╔██║██║
-    ██║   ██╔══██║   ██║   ╚════██║██║   ██║██║╚██╔╝██║██║
-    ██║   ██║  ██║   ██║   ███████║╚██████╔╝██║ ╚═╝ ██║██║${RED}
-    ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝
-  
-  	              Password - Decrypter  ${WHITE}
- 	md5 | sha1 | sha224 | sha256 | sha384 | sha512   
-  	              www.tatsumi-crew.net
-___________________________________________________________
-
+printf "${HIJAU}
+ ####################################
+ ####################################
+ #######                      #######
+ #######                      #######
+ #######                      #######
+ ###############      ###############
+ ###############      ###############
+ ###############      ###############
+ ###############      ###############${MERAH}
+ #######    ####      ####    #######
+ #######    ####      ####    #######
+ #######    ##############    #######
+ #######    ##############    #######
+ #######                      #######
+ ####################################
+ ####################################${PUTIH}
+ ------------------------------------
+        Password - Decrypter
+ md5-sha1-sha224-sha256-sha384-sha512
+      Code By: Arvan Apriyana
+        www.tatsumi-crew.net
+ ------------------------------------
 "
 }
 scanskrng(){
 	kocak="$1"
 	cek=$(curl -s "https://lea.kz/api/hash/$1" -L | grep -Po '(?<="password":)[^,]*' | tr -d '[]"') #apinya
-	if [[ ! $cek =~ "NAKO" ]]; then
-	printf "${WHITE}Password : ${GREEN}$cek | $1 \n"
+	if [[ ! $cek =~ "error" ]]; then
+	printf " ${HIJAU}Password : $cek | $1 \n"
     echo "$cek | $1" >> nemu.txt
            else
-    printf "${RED}NOT FOUND${NC} => $cek\n"
+    printf " ${MERAH}NOT FOUND${NC} => $cek\n"
 fi
-
 }
-
 header
-
-if [ -z $1 ]; then
-  header
-  printf "\n To Use list.txt \n"
-  exit 1
+echo " Delimeter list -> password "
+echo -n " Put Your List : "
+read list
+if [ ! -f $list ]; then
+    echo "$list No Such File"
+exit
 fi
-# OPTIONAL
-persend=20
-setleep=5
-
-itung=1
-
-IFS=$'\r\n' GLOBIGNORE='*' command eval 'list=($(cat list.txt))'
-for (( i = 0; i < "${#list[@]}"; i++ )); do
-
-  nako48=$(expr $itung % $persend)
-    if [[ $nako48 == 0 && $itung > 0 ]]; then
-        sleep $setleep
-    fi
-
-    list="${list[$i]}"
-  	scanskrng ${list} &
-    itung=$[$itung+1]
+    x=$(gawk -F: '{ print $1 }' $list)
+    IFS=$'\r\n' GLOBIGNORE='*' command eval  'passwordna=($x)'
+    for (( i = 0; i < "${#passwordna[@]}"; i++ )); do
+    scancok="${passwordna[$i]}"
+        scanskrng $scancok 
 done
-wait
