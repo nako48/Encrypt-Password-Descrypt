@@ -20,4 +20,4 @@ SHA384</br>
 SHA512</br> 
 Use Tools : "bash file.sh"</br>
 </br>  
-Contact  Me : https://www.facebook.com/nako48.jp
+Contact  Me : https://www.facebook.com/hxr.id
