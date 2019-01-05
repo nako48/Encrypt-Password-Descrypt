@@ -1,52 +1,51 @@
 #!/bin/bash
-#issued on : 17 agustus 2018
-#coded By Arvan Apriyana
-waktu=$(date '+%Y-%m-%d %H:%M:%S')
-HIJAU='\033[0;32m'
-MERAH='\033[0;31m'
-NORMAL='\033[0m'
+#Code By : NakoCoders
+#Contact Me : https://www.facebook.com/hxr.id
+#Nb : Ga usah recode lah kontol kalau cuman ganti text doang memek
+RED='\033[0;31m'
 CYAN='\033[0;36m'
-BIRU='\033[0;34m'
-PUTIH='\033[1;37m'
-header(){
-printf "${HIJAU}
- ####################################
- ####################################
- #######                      #######
- #######                      #######
- #######                      #######
- ###############      ###############
- ###############      ###############
- ###############      ###############
- ###############      ###############${MERAH}
- #######    ####      ####    #######
- #######    ####      ####    #######
- #######    ##############    #######
- #######    ##############    #######
- #######                      #######
- ####################################
- ####################################${PUTIH}
- ------------------------------------
-   Passwords - Decrypter email:pass
-       Code By : Arvan Apriyana
-         www.tatsumi-crew.net
- ------------------------------------
+YELLOW='\033[1;33m'
+ORANGE='\033[0;33m' 
+PUR='\033[0;35m'
+GRN="\e[32m"
+WHI="\e[37m"
+NC='\033[0m'
+banner(){
+	printf "
+	####################################
+	####################################
+	#######                      #######
+	#######                      #######
+	####### www.tatsumi-crew.net #######
+	###############      ###############
+	###############      ###############
+	###############      ###############
+	###############      ###############
+	#######    ####      ####    #######
+	#######    ####      ####    #######
+	#######    ##############    #######
+	#######    ##############    #######
+	#######                      #######
+	####################################
+	####################################
+	------------------------------------
+	           MD5 -> Decrypt
+	------------------------------------
 "
-}
+} 
 scanskrng(){
-    kocak="$1"
-    cek=$(curl -s "https://lea.kz/api/hash/$2" -L | grep -Po '(?<="password":)[^,]*' | tr -d '[]"') #apinya
-    if [[ ! $cek =~ "NAKO" ]]; then
-    printf " ${HIJAU}Sukses : ${GREEN}$1 :$cek\n"
-    echo "$1 :$cek" >> nemu.txt
+    cek=$(curl -s "https://lea.kz/api/hash/$2" -L | grep -Po '(?<="password":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
+    if [[ $cek =~ "" ]]; then
+    printf "${HIJAU}BERHASIL => $1 : $cek\n"
+    echo "BERHASIL => $1 : $cek" >> nemu.txt
            else
-    printf " ${MERAH}NOT FOUND${NC} => $cek\n"
+    printf "${MERAH}GAGAL => $1 : $cek\n"
 fi
 
 }
-header
-echo " Delimeter list -> email:password "
-echo -n " Put Your List : "
+banner
+echo "Delimeter list -> email:password "
+echo -n "Put Your List : "
 read list
 if [ ! -f $list ]; then
     echo "$list No Such File"
